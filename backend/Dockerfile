@@ -40,7 +40,7 @@ ENV PYTHONPATH=/app \
     ADMIN_PASSWORD=admin123
 
 # 切换到非 root 用户
-USER appuser
+#USER appuser
 
 # 暴露端口
 EXPOSE 8000
