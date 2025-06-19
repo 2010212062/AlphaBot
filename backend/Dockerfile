@@ -44,10 +44,11 @@ ENV PYTHONPATH=/app \
 
 # 暴露端口
 EXPOSE 8000
-
 # 复制并设置入口点脚本
 COPY --chown=appuser:appuser entrypoint.sh /backend/entrypoint.sh
-RUN chmod +x /backend/entrypoint.sh
+RUN apt-get update && apt-get install -y dos2unix  # 安装转换工具
+RUN dos2unix /backend/*  # 转换 CRLF 为 LF
+RUN chmod +x /backend/*  # 添加执行权限
 
 ENTRYPOINT ["/backend/entrypoint.sh"]
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info"]
